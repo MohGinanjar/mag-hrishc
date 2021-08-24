@@ -1,0 +1,303 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Tables {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %} Form BDL{% endblock stylesheets %}
+
+{% block content %}
+
+<div class="py-4">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent">
+            <li class="breadcrumb-item"><a href="#"><span class="fas fa-home"></span></a></li>
+            <li class="breadcrumb-item"><a href="#">Tables</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Entertainment</li>
+        </ol>
+    </nav>
+    
+</div>
+
+<div class="row">
+    <div class="col-12 mb-4">
+        <div class="card border-light shadow-sm components-section">
+            <div class="card-body">
+                <form action="{% url 'app:save-entertainment' %}" method="POST">
+                    {% csrf_token %}
+                    <div class="row mb-4">
+                        <div class="col-lg-2 col-sm-6">
+                            <!-- Form -->
+                            <div class="mb-3">
+                                <label for="">Document ID</label>
+                                <input type="text" class="form-control" name="id" value={{id}} required>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="">NIK</label>
+                                <input type="text" class="form-control" name="nik" value={{dataemp.emp_no}} required>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="">Paid To</label>
+                                <input type="text" class="form-control" name="paid" value={{dataemp.emp_name}} required>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="">No Rekening Bank</label>
+                                <input type="text" class="form-control" name="norek" value={{dataemp.bank_acct}}
+                                    required>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="">Bank Name</label>
+                                <input type="text" class="form-control" name="bankname" value="BANK CENTRAL ASIA"
+                                    required>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                            </div>
+                            <!-- End of Form -->
+                        </div>
+                        <div class="col-lg-4 col-sm-6">
+                            <!-- Form -->
+                            
+                            
+                            <div class="mb-3">
+                                <label for="">Approver 1st:</label>
+                                <input type="text" class="form-control" name="approver1"
+                                    value="{{atasanpertama.emp_no}}-{{atasanpertama.emp_name}}" required disabled>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="my-1 me-2" for="country">Budget Code:</label>
+
+                                <select class="form-select" id="country" name="codebudget"
+                                    aria-label="Default select example">
+                                    <option selected>Open this select budget</option>
+                                    {% for budget in codebudget %}
+                                    <option value={{budget.budget_number}}-{{budget.gl_name}}>
+                                        {{budget.budget_number}}-{{budget.gl_name}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="birthday">Ent Date:</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><span class="far fa-calendar-alt"></span></span>
+                                    <input name="enter_date" class="form-control" id="birthday" type="date"
+                                        placeholder="dd/mm/yyyy" required>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="">Currency:</label>
+                                <input type="text" class="form-control" name="currency" value="IDR" required>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="">Amount:</label>
+                                <input type="text" class="form-control" name="ammount" required>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                            </div>
+                            <!-- End of Form -->
+                        </div>
+                        <div class="col-lg-4 col-sm-6">
+                            <!-- Form -->
+
+                            
+                            
+                            <div class="mb-3">
+                                <label for="">Customer Name:</label>
+                                <input type="text" class="form-control" name="customername" required>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="">Position:</label>
+                                <input type="text" class="form-control" name="position" required>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="">Company:</label>
+                                <input type="text" class="form-control" name="company" required>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="">Kind of Business:</label>
+                                <input type="text" class="form-control" name="kindofbusines" required>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                            </div>
+                            
+                            <!-- End of Form -->
+                        </div>
+                        
+                        <div class="card-footer">
+                            <button class="btn btn-tertiary" type="submit"><span class="far fa-paper-plane me-2"
+                                    id="fetch_student"></span>Add Transaction</button>
+
+                        </div>
+                </form>
+            </div>
+
+
+
+        </div>
+    </div>
+</div>
+</div>
+
+<div class="card border-light shadow-sm mb-2">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-centered  mb-0 rounded">
+                <thead class="thead-light">
+                    <tr>
+                        <th class="border-0">Cutomer Name</th>
+                        <th class="border-0">Position</th>
+                        <th class="border-0">Company</th>
+                        <th class="border-0">Kind of Busness</th>
+                        <th class="border-0">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Item -->
+                    {% for list in listenter %}
+                    <tr>
+                        <td class="border-0"><a href="#" class="text-primary fw-bold"></a>
+                            {{list.customer_name}}
+                        </td>
+                        <td class="border-0 fw-bold"><span></span></span>
+                            {{list.customer_position}}
+                        </td>
+                        <td class="border-0">
+                            {{list.customer_company}}
+                        </td>
+                        <td class="border-0">
+                            {{list.remark}}
+                        </td>
+                        
+                        <td class="border-0">
+                            <button class="btn btn-danger" type="submit"><span class="fa fa-minus-circle me-2"
+                                    id="fetch_student"></span>Delete</button>
+                        </td>
+                    </tr>
+                    <!-- End of Item -->
+                    {% endfor %}
+
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="card border-light shadow-sm mb-2">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-centered  mb-0 rounded">
+                <thead class="thead-light">
+                    <tr>
+                       
+                        <th class="border-0">Budget Code </th>
+                        <th class="border-0">GL Name</th>
+                        <th class="border-0">GL No</th>
+                        <th class="border-0">Cost Center</th>
+                        <th class="border-0">Curr</th>
+                        <th class="border-0">Amount</th>
+                        <th class="border-0">Description</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Item -->
+                    {% for list in logbook_budget %}
+                    <tr>
+                        <td class="border-0"><a href="#" class="text-primary fw-bold"></a>
+                           {{list.budget_code}}
+                        </td>
+                        <td class="border-0 fw-bold"><span></span></span>
+                            {{list.gl_name}}
+                        </td>
+                        <td class="border-0">
+                            {{list.gl_no}}
+                        </td>
+                        <td class="border-0">
+                            {{list.div_code}}
+                        </td>
+                        <td class="border-0">
+                            {{list.curr}}
+                        </td>
+                        <td class="border-0" name="amt">
+                            {{list.amt}}
+                        </td>
+                       
+                        
+                        <td class="border-0">
+                            {{list.remark}}
+                        </td>
+                       
+                    </tr>
+                    <!-- End of Item -->
+                    {% endfor %}
+
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<form action="{% url 'app:enter_draft_to' %}" method="POST">
+    {% csrf_token %}
+<div class="row">
+    <div class="col-12 mb-4">
+        <div class="card border-light shadow-sm components-section">
+            <div class="card-body">
+                
+                <input type="hidden" id="custId" name="id" value={{id}}>
+                <div class="my-4">
+                    <label for="textarea">BDS Description:</label>
+                    <textarea class="form-control" placeholder="BDS Description" id="textarea" name="bdsremark"
+                        rows="4" required></textarea>
+                </div>
+                <div class="card-footer">
+                    <button class="btn btn-tertiary" type="submit"><span class="far fa-paper-plane me-2"
+                            id="fetch_student"></span>Add Transaction</button>
+
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</div>
+</form>
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+
+<script type="application/javascript">
+   
+</script>
+
+{% endblock javascripts %}

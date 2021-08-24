@@ -1,0 +1,198 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Draft BDL {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+      <div class="py-4">
+          <nav aria-label="breadcrumb">
+              <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent">
+                  <li class="breadcrumb-item"><a href="#"><span class="fas fa-home"></span></a></li>
+                  <li class="breadcrumb-item"><a href="#">Form</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">Draft BDL</li>
+              </ol>
+          </nav>
+         
+      </div>
+
+      <div class="card border-light shadow-sm mb-4">
+          <div class="card-body">
+              <div class="table-responsive">
+                  <table class="table table-centered table-nowrap mb-12 rounded">
+                      <thead class="thead-light">
+                          <tr>
+                              <th class="border-0">Action</th>
+                              <th class="border-0">Date</th>
+                              <th class="border-0">Desc</th>
+                              <th class="border-0">ID</th>
+                              <th class="border-0">Name</th>
+                              <th class="border-0">IDR</th>
+                              <th class="border-0">APP 1</th>
+                              <th class="border-0">APP 2</th>
+                              {% for list in layer %}
+                              <th class="border-0">{{list.alias_name}}</th>
+                              
+                              {% endfor %}
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <!-- Item -->
+                          {% for list in bdldraft %}
+                          <tr>
+                            <td class="border-0">
+                                <div class="btn-group">
+                                    <button class="btn btn-link text-dark dropdown-toggle dropdown-toggle-split m-0 p-0" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <span class="icon icon-sm">
+                                            <span class="fas fa-ellipsis-h icon-dark"></span>
+                                        </span>
+                                        <span class="sr-only">Toggle Dropdown</span>
+                                    </button>
+                                    <div class="dropdown-menu py-0">
+                                        <a class="dropdown-item rounded-top" href="#"><span class="far fa-paper-plane me-2"></span>Send To Approver</a>
+                                        <a class="dropdown-item rounded-top" href="#"><span class="fas fa-paperclip me-2"></span>Upload Receipt</a>
+                                        <a class="dropdown-item rounded-top" href="#"><span class="fas fa-eye me-2"></span>View Details</a>
+                                        <a class="dropdown-item" href="#"><span class="fas fa-edit me-2"></span>Edit</a>
+                                        <a class="dropdown-item text-danger rounded-bottom" href="#"><span class="fas fa-trash-alt me-2"></span>Remove</a>
+                                    </div>
+                                </div>
+                              </td>
+                              <td class="border-0"><a href="#" class="text-primary fw-bold">{{list.name_payment}}</a> </td>
+                              <td class="border-0 fw-bold">{{list.doc_remark}}</td>
+                              <td class="border-0">
+                                {{list.doc_id}}
+                              </td>
+                              <td class="border-0">
+                                {{list.name_payment}}
+                              </td>
+                              <td class="border-0">
+                                {{list.total_payment_idr}}
+                              </td>
+                              <td class="border-0">
+                                {% if list.act_state1 == "NON" %}
+                                <div><span class="icon icon-xs icon-warning w-40"><span class="fas fa-clock"></span></span>Waiting</div>
+                                {% elif list.act_state1 == "YES" %}
+                                <div class="text-success"><span class="icon icon-xs icon-success w-40"><span class="fas fa-check"></span></span>Approved</div>
+                                {% elif list.act_state1 == "RJT" %}
+                                <div class="text-danger"><span class="icon icon-xs icon-danger w-40"><span class="fas fa-times-circle"></span></span>Reject</div>
+                                {% else %}
+                                <div><span class="icon icon-xs icon-warning w-40"><span class="fas fa-clock"></span></span>Waiting</div>
+                                {% endif %} 
+                                
+                              </td>
+                              <td class="border-0">
+                                {% if list.act_state2 == "NON" %}
+                                <div ><span class="icon icon-xs icon-warning w-40"><span class="fas fa-clock"></span></span>Waiting</div>
+                                {% elif list.act_state2 == "YES" %}
+                                <div class="text-success"><span class="icon icon-xs icon-success w-40"><span class="fas fa-check"></span></span>Approved</div>
+                                {% elif list.act_state2 == "RJT" %}
+                                <div class="text-danger"><span class="icon icon-xs icon-danger w-40"><span class="fas fa-times-circle"></span></span>Reject</div>
+                                {% else %}
+                                <div><span class="icon icon-xs icon-warning w-40"><span class="fas fa-clock"></span></span>Waiting</div>
+                                {% endif %} 
+                              </td>
+                              <td class="border-0">
+                                {% if list.act_state3 == "NON" %}
+                                <div><span class="icon icon-xs icon-warning w-40"><span class="fas fa-clock"></span></span>Waiting</div>
+                                {% elif list.act_state3 == "YES" %}
+                                <div class="text-success"><span class="icon icon-xs icon-success w-40"><span class="fas fa-check"></span></span>Approved</div>
+                                {% elif list.act_state3 == "RJT" %}
+                                <div class="text-danger"><span class="icon icon-xs icon-danger w-40"><span class="fas fa-times-circle"></span></span>Reject</div>
+                                {% else %}
+                                <div><span class="icon icon-xs icon-warning w-40"><span class="fas fa-clock"></span></span>Waiting</div>
+                                {% endif %} 
+                              </td>
+                              <td class="border-0">
+                                {% if list.act_state4 == "NON" %}
+                                <div><span class="icon icon-xs icon-warning w-40"><span class="fas fa-clock"></span></span>Waiting</div>
+                                {% elif list.act_state4 == "YES" %}
+                                <div class="text-success"><span class="icon icon-xs icon-success w-40"><span class="fas fa-check"></span></span>Approved</div>
+                                {% elif list.act_state4 == "RJT" %}
+                                <div><span class="icon icon-xs icon-danger w-40"><span class="fas fa-times-circle"></span></span>Reject</div>
+                                {% else %}
+                                <div class="text-danger"><span class="icon icon-xs icon-warning w-40"><span class="fas fa-clock"></span></span>Waiting</div>
+                                {% endif %} 
+                              </td>
+                              <td class="border-0">
+                                {% if list.act_state5 == "NON" %}
+                                <div><span class="icon icon-xs icon-warning w-40"><span class="fas fa-clock"></span></span>Waiting</div>
+                                {% elif list.act_state5 == "YES" %}
+                                <div class="text-success"><span class="icon icon-xs icon-success w-40"><span class="fas fa-check"></span></span>Approved</div>
+                                {% elif list.act_state5 == "RJT" %}
+                                <div class="text-danger"><span class="icon icon-xs icon-danger w-40"><span class="fas fa-times-circle"></span></span>Reject</div>
+                                {% else %}
+                                <div><span class="icon icon-xs icon-warning w-40"><span class="fas fa-clock"></span></span>Waiting</div>
+                                {% endif %} 
+                              </td>
+                              <td class="border-0">
+                                {% if list.act_state6 == "NON" %}
+                                <div><span class="icon icon-xs icon-warning w-40"><span class="fas fa-clock"></span></span>Waiting</div>
+                                {% elif list.act_state6 == "YES" %}
+                                <div class="text-success"><span class="icon icon-xs icon-success w-40"><span class="fas fa-check"></span></span>Approved</div>
+                                {% elif list.act_state6 == "RJT" %}
+                                <div class="text-danger"><span class="icon icon-xs icon-danger w-40"><span class="fas fa-times-circle"></span></span>Reject</div>
+                                {% else %}
+                                <div><span class="icon icon-xs icon-warning w-40"><span class="fas fa-clock"></span></span>Waiting</div>
+                                {% endif %} 
+                              </td>
+                              <td class="border-0">
+                                {% if list.act_state7 == "NON" %}
+                                <div><span class="icon icon-xs icon-warning w-40"><span class="fas fa-clock"></span></span>Waiting</div>
+                                {% elif list.act_state7 == "YES" %}
+                                <div class="text-success"><span class="icon icon-xs icon-success w-40"><span class="fas fa-check"></span></span>Approved</div>
+                                {% elif list.act_state7 == "RJT" %}
+                                <div class="text-danger"><span class="icon icon-xs icon-danger w-40"><span class="fas fa-times-circle"></span></span>Reject</div>
+                                {% else %}
+                                <div><span class="icon icon-xs icon-warning w-40"><span class="fas fa-clock"></span></span>Waiting</div>
+                                {% endif %} 
+                              </td>
+                              <td class="border-0">
+                                {% if list.act_state8 == "NON" %}
+                                <div><span class="icon icon-xs icon-warning w-40"><span class="fas fa-clock"></span></span>Waiting</div>
+                                {% elif list.act_state8 == "YES" %}
+                                <div class="text-success"><span class="icon icon-xs icon-success w-40"><span class="fas fa-check"></span></span>Approved</div>
+                                {% elif list.act_state8 == "RJT" %}
+                                <div class="text-danger"><span class="icon icon-xs icon-danger w-40"><span class="fas fa-times-circle"></span></span>Reject</div>
+                                {% else %}
+                                <div><span class="icon icon-xs icon-warning w-40"><span class="fas fa-clock"></span></span>Waiting</div>
+                                {% endif %} 
+                              </td>
+                              <td class="border-0">
+                                {% if list.act_state9 == "NON" %}
+                                <div><span class="icon icon-xs icon-warning w-40"><span class="fas fa-clock"></span></span>Waiting</div>
+                                {% elif list.act_state9 == "YES" %}
+                                <div class="text-success"><span class="icon icon-xs icon-success w-40"><span class="fas fa-check"></span></span>Approved</div>
+                                {% elif list.act_state9 == "RJT" %}
+                                <div class="text-danger"><span class="icon icon-xs icon-danger w-40"><span class="fas fa-times-circle"></span></span>Reject</div>
+                                {% else %}
+                                <div><span class="icon icon-xs icon-warning w-40"><span class="fas fa-clock"></span></span>Waiting</div>
+                                {% endif %} 
+                              </td>
+                              <td class="border-0">
+                                {% if list.act_state10 == "NON" %}
+                                <div><span class="icon icon-xs icon-warning w-40"><span class="fas fa-clock"></span></span>Waiting</div>
+                                {% elif list.act_state10 == "YES" %}
+                                <div class="text-success"><span class="icon icon-xs icon-success w-40"><span class="fas fa-check"></span></span>Approved</div>
+                                {% elif list.act_state10 == "RJT" %}
+                                <div class="text-danger"><span class="icon icon-xs icon-danger w-40"><span class="fas fa-times-circle"></span></span>Reject</div>
+                                {% else %}
+                                <div><span class="icon icon-xs icon-warning w-40"><span class="fas fa-clock"></span></span>Waiting</div>
+                                {% endif %} 
+                              </td>
+                              
+                          </tr>
+                          <!-- End of Item -->
+                          {% endfor %}
+                      </tbody>
+                  </table>
+              </div>
+          </div>
+        </div>
+   
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

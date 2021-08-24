@@ -1,0 +1,41 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Tables {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %} Form BDL{% endblock stylesheets %}
+
+{% block content %}
+
+        <!-- Modal Content -->
+        <form action="{% url 'app:upload-document' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+          <div class="modal fade" id="modal-default" tabindex="-1" role="dialog" aria-labelledby="modal-default" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2 class="h6 modal-title">Upload</h2>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="file" name="documentes">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-secondary">Accept</button>
+                      
+                    </div>
+                </div>
+            </div>
+        </div>
+      </form>
+        <!-- End of Modal Content -->
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+
+<script type="application/javascript">
+   
+</script>
+
+{% endblock javascripts %}

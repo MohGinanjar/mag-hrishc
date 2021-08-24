@@ -1,0 +1,135 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Draft BDL {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+      <div class="py-4">
+          <nav aria-label="breadcrumb">
+              <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent">
+                  <li class="breadcrumb-item"><a href="#"><span class="fas fa-home"></span></a></li>
+                  <li class="breadcrumb-item"><a href="#">Form</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">Draft Medical</li>
+              </ol>
+          </nav>
+         
+      </div>
+
+      <div class="card border-light shadow-sm mb-4">
+          <div class="card-body ">
+              <div class="table-responsive ">
+                  <table class="table table-centered table-nowrap mb-12 rounded">
+                      <thead class="thead-light">
+                          <tr>
+                              <th class="border-0">Action</th>
+                              <th class="border-0">Name</th>
+                              <th class="border-0">Type</th>
+                              <th class="border-0">DocumentId</th>
+                              <th class="border-0">Remark</th>
+                              <th class="border-0">IDR</th>
+                              <th class="border-0">USD</th>
+                              <th class="border-0">YEN</th>
+                              <th class="border-0">BATH</th>
+                              <th class="border-0">MYR</th>
+                              <th class="border-0">SGD</th>
+                              <th class="border-0">EURO</th>
+                              
+                          </tr>
+                      </thead>
+                      
+                      <tbody>
+                          <!-- Item -->
+                          {% for list in bdldraft %}
+                          <form action="{% url 'app:upload-document' list.doc_id %}" method="post" enctype="multipart/form-data">
+                          <tr>
+                            <td class="border-0">
+                                <div class="btn-group">
+                                    <button class="btn btn-link text-dark dropdown-toggle dropdown-toggle-split m-0 p-0" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <span class="icon icon-sm">
+                                            <span class="fas fa-ellipsis-h icon-dark"></span>
+                                        </span>
+                                        <span class="sr-only">Toggle Dropdown</span>
+                                    </button>
+                                    
+                                    <div class="dropdown-menu py-0">
+                                        <a class="dropdown-item rounded-top" href="{% url 'app:send_to_approver_medical' list.doc_id %}"><span class="far fa-paper-plane me-2"></span>Send To Approver</a>
+                                        <a class="dropdown-item rounded-top" data-bs-toggle="modal" data-bs-target="#modal-default{{list.doc_id}}"><span class="fas fa-paperclip me-2"></span>Upload Receipt</a>
+                                        <a class="dropdown-item rounded-top" href="{% url 'app:view-bdl' list.doc_id %}"><span class="fas fa-eye me-2"></span>View Details</a>
+                                        <a class="dropdown-item" href="{% url 'app:edit-medical' list.doc_id %}"><span class="fas fa-edit me-2"></span>Edit</a>
+                                        <a class="dropdown-item text-danger rounded-bottom" href="{% url 'app:delete-medical' list.doc_id %}"><span class="fas fa-trash-alt me-2"></span>Remove</a>
+                                    </div>
+                                </div>
+                              </td>
+                              <td class="border-0"><a href="#" class="text-primary fw-bold">{{list.name_payment}}</a> </td>
+                              <td class="border-0 fw-bold">{{list.doc_type}}</td>
+                              <td class="border-0">
+                                {{list.doc_id}}
+                              </td>
+                              <td class="border-0">
+                                {{list.doc_remark}}
+                              </td>
+                              <td class="border-0">
+                                {{list.total_payment_idr}}
+                              </td>
+                              <td class="border-0">
+                                {{list.total_payment_usd}}
+                              </td>
+                              <td class="border-0">
+                                {{list.total_payment_ypn}}
+                              </td>
+                              <td class="border-0">
+                                {{list.total_payment_bath}}
+                              </td>
+                              <td class="border-0">
+                                {{list.total_payment_myr}}
+                              </td>
+                              <td class="border-0">
+                                {{list.total_payment_sgd}}
+                              </td>
+                              <td class="border-0">
+                                {{list.total_payment_euro}}
+                              </td>
+                              
+                          
+                          <!-- End of Item -->
+                          
+                          
+                            {% csrf_token %}
+                          <div class="modal fade" id="modal-default{{list.doc_id}}" tabindex="-1" role="dialog" aria-labelledby="modal-default" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h2 class="h6 modal-title">Upload</h2>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <input type="file" name="documentes" multiple="multiple">
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="submit" class="btn btn-secondary">Accept</button>
+                                      
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                      </form>
+                    </tr>
+                          {% endfor %}
+                          
+                      </tbody>
+                      
+                  </table>
+                 
+              </div>
+          </div>
+        </div>
+
+        
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}
